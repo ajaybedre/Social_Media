@@ -78,6 +78,7 @@ app.get('/Posting', function(req,res){
   var a1 = req.query.Username;
   var a2 = req.query.req;
   a1=g.g;
+  res.sendFile(staticpath + '/Post.html');
 })
 
 app.get('/Viewpost', function(req,res){
@@ -85,8 +86,177 @@ app.get('/Viewpost', function(req,res){
   var a1 = req.query.Username;
   var a2 = req.query.req;
   a1=g.g;
-  
+  let he=[];
+  var i=0;
+  //Nested queries
+  var show = 'SELECT * FROM posts WHERE Username in (SELECT Friend_ID FROM friend_list WHERE User_ID = ?) OR Personal=0';
+  connection.query(show, [a1], function(err, rows){
+    if(err){
+      res.render('Nouserfound',{page_title:"",data:''});
+    }
+    else
+    {
+      
+      var ss = 'SELECT COUNT(*) AS like_count FROM likepost WHERE PostID = ?';
+      rows.forEach((row)=>{
+        console.log("PostID ", row.PostID);
+        var k = row.PostID;
+        connection.query(ss, [k], function(err, rr){
+          if(err)
+          {
+            console.log(err);
+          }
+          else{
+          //obj = row;
+          
+          rr.forEach((r)=>{
+            //he[i] = r.like_count;
+            //row.Likes = r.like_count;
+          i++;
+          })
+          
+          //row.k = JSON.parse(JSON.stringify(rr));
+          //console.log(obj,k);
+          //rows["Likes"] = rr.like_count;
+          }
+        })
+      });
+
+     // res.render('viewposts',{page_title:"Your feed",data:rows});
+     console.log(rows);
+     console.log(he);
+     res.render('viewposts',{page_title:"Your feed",data:rows, dt: he});
+    }
+  })
 })
+
+app.get('/Post', function(req,res){
+  var g = require("./auth");
+  var a1 = req.query.Username;
+  var a2 = req.query.req;
+  var cpt = req.query.capt;
+  var pic = req.query.pic;
+  var per = req.query.Pers;
+  a1=g.g;
+  //Nested queries
+  var posting = 'INSERT INTO posts (Caption, Pic, UploadedAt, Username, Personal) VALUES (?,?,?,?,?)';
+  //var upa = new Date();
+  var upa = new Date().toISOString().slice(0, 19).replace('T', ' ');;
+  //var jsonDate = now.jsonDate
+  //var then = new Date(jsonDate)
+  connection.query(posting, [cpt,pic,upa,a1,per], function(err, rows){
+    if(err){
+      res.render('Nouserfound',{page_title:"",data:''});
+    }
+    else
+    {
+      res.render('Sucpost',{page_title:"Your feed",data:rows});
+    }
+  })
+})
+
+app.get('/Showcomments', function(req,res){
+  var p = req.query.pid;
+  var show = 'SELECT * FROM comments WHERE PostID = ?';
+  connection.query(show, [p], function(err, rows){
+    if(err){
+      res.render('Nouserfound',{page_title:"",data:''});
+    }
+    else
+    {
+      res.render('viewcom',{page_title:"Your feed",data:rows});
+    }
+  })
+})
+
+app.get('/Comment', function(req,res){
+  var un = req.query.username;
+  var cm = req.query.Com;
+  //var cma = req.query.cma;
+  //var cid = req.query.cmi;
+  var pid = req.query.pid;
+  var g = require("./auth");
+  cma = new Date().toISOString().slice(0, 19).replace('T', ' ');;
+  un = g.g;
+  console.log(un,cm,cma,pid);
+  var show = 'INSERT INTO comments (Username, Comment, CommentedAt, PostID) VALUES (?,?,?,?)';
+  connection.query(show, [un,cm,cma,pid], function(err, rows){
+    if(err){
+      
+      res.render('Nouserfound',{page_title:"",data:''});
+    }
+    else
+    {
+      res.render('Comsuc',{page_title:"Your feed",data:rows});
+    }
+  })
+})
+app.get('/Viewlike', function(req,res){
+  var pid = req.query.pid;
+  var kk = 'SELECT * FROM likepost WHERE PostID=?';
+  connection.query(kk, [pid], function(err, rows){
+    if(err)
+    {
+      console.log('Chance illa');
+    }
+    else
+    {
+      res.render('Viewlike',{page_title:"Likes", data:rows});
+    }
+  })
+})
+app.get('/Like', function(req,res){
+  
+  var g = require("./auth");
+  cma = new Date().toISOString().slice(0, 19).replace('T', ' ');;
+  var un = g.g;
+  var pid = req.query.pid;
+  var find = 'SELECT * FROM likepost WHERE PostID=? AND Username=?';
+  var d=0;
+  console.log(pid, un);
+  connection.query(find, [pid,un], function(err, rows){
+    if(err){
+      console.log('Nope!');
+      //res.render('Nouserfound',{page_title:"",data:''});
+    }
+    else
+    {
+      if(rows.length==0)
+      {
+        var show = 'INSERT INTO likepost (PostID, Username) VALUES (?,?)';
+        connection.query(show, [pid,un], function(err, rows){
+        if(err){
+          res.render('Nouserfound',{page_title:"",data:''});
+        }
+        else
+        {
+          console.log('INSERTED!');
+          //res.render('viewposts',{page_title:"Your feed",data:rows});
+          res.redirect('/Viewpost');
+        }
+      })
+      }
+      else
+      {
+        var find = 'DELETE FROM likepost WHERE PostID=? AND Username=?';
+        connection.query(find, [pid,un], function(err, rows){
+        if(err){
+          console.log(err);
+          //res.render('Nouserfound',{page_title:"",data:''});
+        }
+        else
+        {
+          console.log('DELETED!');
+          //res.render('viewposts',{page_title:"Your feed",data:rows});
+          res.redirect('/Viewpost');
+        }
+      })
+      }
+      //res.render('viewposts',{page_title:"Your feed",data:rows});
+    }
+  })
+})
+
 
 app.get('/Register', function(req,res){
   res.sendFile(staticpath + '/Registration.html');
