@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+    <script>
+        function validate()
+        {
+            var name = document.form1.name.value;
+            var pass = document.form1.pass.value;
+        if(name=="")
+        {
+            alert("Username can't be empty!");
+           return false;
+        }
+        else if(pass == "")
+        {
+           alert("Password field empty!");
+           return false;
+        }
+        else if(pass.length>0)// && pass.match(/[A-Z]/g) && pass.match(/[0-9]/g) && pass.match(/[a-z]/g))
+        {
+           //alert("You have successfully logged in!\n");
+           return true;
+        }
+        else
+        {
+            alert("The length of the password should be greater than 8\nAt least have 1 digit\n1 UPPERCASE letter\n1 lowercase letter\n");
+            return false;
+        }
+        }
+    </script>
+    <form method="post" name="form1" onsubmit="return validate()">
+        <center><h2 style="font-family:courier;">Choose an Username: <input type="text" id="username" name="username"></h2></center>
+        <center><h2 style="font-family:courier;">Choose an Password: <input type="password" id="password" name="password" value=""></h2></center>
+        
+        <center><h2 style="font-family:courier;">Type your Email Address: <input type="text" id="en" name="en" value=""></h2></center>
+        <center><h2 style="font-family:courier;">Type your Contact Number: <input type="text" id="cn" name="cn" value=""></h2></center>
+        <center><h2 style="font-family:courier;">Type your First Name: <input type="text" id="fn" name="fn"></h2></center>
+        <center><h2 style="font-family:courier;">Type your Middle Name: <input type="text" id="mn" name="mn" value=""></h2></center>
+        <center><h2 style="font-family:courier;">Type your Last Name: <input type="text" id="ln" name="ln"></h2></center>
+        
+        <!-- <center><h2 style="font-family:courier;">Type your Last Name: <input type="text" id="username" name="username"></h2></center> -->
+        <!-- <center><h2 style="font-family:courier;">Type your Contact Number: <input type="password" id="password" name="password" value=""></h2></center> -->
+        <center><h1><input formaction = "http://localhost:3080/Logging" type="submit" value="GO BACK TO LOGIN PAGE"></h1>
+            <center><h1><input formaction = "http://localhost:3080/Log/auth/create" type="submit" value="REGISTER"></h1>
+        <h1><button type="reset" value="RESET">RESET</button></h1></center>
+    </form>
+</html>

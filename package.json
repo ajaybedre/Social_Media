@@ -1,0 +1,22 @@
+{
+  "dependencies": {
+    "airflow": "^0.0.4",
+    "body-parser": "^1.19.0",
+    "cookie-parser": "^1.4.6",
+    "ejs": "^3.1.6",
+    "express": "^4.17.1",
+    "express-flash": "^0.0.2",
+    "express-validator": "^6.13.0",
+    "jsonwebtoken": "^8.5.1",
+    "morgan": "^1.10.0",
+    "mysql": "^2.18.1",
+    "mysql2": "^2.3.3",
+    "node": "^17.1.0",
+    "nodemailer": "^6.7.2",
+    "nodemon": "^2.0.15",
+    "sequelize": "^6.12.0-beta.1"
+  },
+  "devDependencies": {
+    "sequelize-cli": "^6.3.0"
+  }
+}

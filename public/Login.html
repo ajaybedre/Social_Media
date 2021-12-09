@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>Login</head>
+
+<script>
+    function validate()
+    {
+        var name = document.form1.name.value;
+        var pass = document.form1.pass.value;
+    if(name=="")
+    {
+        alert("Username can't be empty!");
+       return false;
+    }
+    else if(pass == "")
+    {
+       alert("Password field empty!");
+       return false;
+    }
+    else if(pass.length>0)// && pass.match(/[A-Z]/g) && pass.match(/[0-9]/g) && pass.match(/[a-z]/g))
+    {
+       //alert("You have successfully logged in!\n");
+       return true;
+    }
+    else
+    {
+        alert("The length of the password should be greater than 8\nAt least have 1 digit\n1 UPPERCASE letter\n1 lowercase letter\n");
+        return false;
+    }
+    }
+</script>
+<body style="background-color:lightyellow;">
+    <center> <img align="middle" src="./images/Login.png" alt="LOGIN" width="378" height="450"></center>
+    <form name="form1" onsubmit="return validate()">
+        <center><h2 style="font-family:courier;">Username: <input type="text" id="username" name="username"></h2></center>
+        <center><h2 style="font-family:courier;">Password: <input type="password" id="password" name="password" value=""></h2></center>
+        <center><h1><input formaction = "http://localhost:3080/Log/auth/login" type="submit" value="SUBMIT"></h1>
+            <center><h1><input formaction = "http://localhost:3080/Register" type="submit" value="NEW USER? CLICK HERE"></h1>
+        <h1><button type="reset" value="RESET">RESET</button></h1></center>
+    </form>
+
+</body>
+</html>

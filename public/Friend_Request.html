@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+    
+   <form>
+        <!-- Type your username <input type="text" id='Username' name='Username'><br> -->
+    Type the username you want to send friend request to<input type="text" id='req' name='req'><br>
+        <button type="submit" id="form-submit1" class="btn" onclick="openit()" formaction = "http://localhost:3080/req">
+            Send request</button>
+            <script src="Try.js"></script>
+            <button onclick="openit()" formaction = "http://localhost:3080/pending", type="submit" id="form-submit2" class="btn">View Pending list</button>
+            <script src="Try.js"></script>
+            <button onclick="openit()" formaction = "http://localhost:3080/sent", type="submit" id="form-submit2" class="btn">View Sent request</button>
+            <button onclick="openit()" formaction = "http://localhost:3080/friend", type="submit" id="form-submit2" class="btn">View Friend List</button>
+            <script src="Try.js"></script>
+            <button onclick="openit()" formaction = "http://localhost:3080/Logging", type="submit" id="form-submit2" class="btn">Logout</button>
+            <button onclick="openit()" formaction = "http://localhost:3080/Posting", type="submit" id="form-submit2" class="btn">Post</button>
+            <button onclick="openit()" formaction = "http://localhost:3080/Viewpost", type="submit" id="form-submit2" class="btn">View Post</button>
+           
+            <!-- <button onclick="play()" class="btn">DON'T CLICK HERE!</button> -->
+            <!-- <script src="tp.js</script> -->
+            </form>
+</html>
