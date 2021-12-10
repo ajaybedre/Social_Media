@@ -85,10 +85,12 @@ app.get('/Viewpost', function(req,res){
   var g = require("./auth");
   var a1 = req.query.Username;
   var a2 = req.query.req;
+  var d;
   a1=g.g;
   let he=[];
   var i=0;
   //Nested queries
+  let ob = {};
   var show = 'SELECT * FROM posts WHERE Username in (SELECT Friend_ID FROM friend_list WHERE User_ID = ?) OR Personal=0';
   connection.query(show, [a1], function(err, rows){
     if(err){
@@ -96,11 +98,16 @@ app.get('/Viewpost', function(req,res){
     }
     else
     {
-      
+      ob = rows;
       var ss = 'SELECT COUNT(*) AS like_count FROM likepost WHERE PostID = ?';
       rows.forEach((row)=>{
         console.log("PostID ", row.PostID);
         var k = row.PostID;
+        /*ob.forEach((o)=>{
+          d = Buffer.from( row.Pic, 'binary' ).toString('base64');
+          ob['Pic'] = d;
+        })*/
+        
         connection.query(ss, [k], function(err, rr){
           if(err)
           {
@@ -124,7 +131,7 @@ app.get('/Viewpost', function(req,res){
 
      // res.render('viewposts',{page_title:"Your feed",data:rows});
      console.log(rows);
-     console.log(he);
+     console.log(ob);
      res.render('viewposts',{page_title:"Your feed",data:rows, dt: he});
     }
   })

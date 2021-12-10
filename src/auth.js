@@ -17,7 +17,7 @@ module.exports.create = async (req,res)=>{
     try{
         console.log(req.body);
         var {username,password,email,contactNo,firstName,midName,lastName}=req.body;
-        console.log(username,password,email,contactNo,firstName,midName,lastName);
+        
         
         //CREATE TRIGGER
         //THIS CODE WORKS BUT ALSO REQUIRES CONTACTS
@@ -28,26 +28,26 @@ module.exports.create = async (req,res)=>{
         var firstName=req.body.fn;
         var midName=req.body.mn;
         var lastName=req.body.ln;
+        if(contactNo=='')
+        {
+            contactNo=-1;
+        }
+        console.log(username,password,email,contactNo,firstName,midName,lastName);
         var f="INSERT INTO `userstable` (`username`,`password`,`email`,`firstName`,`midName`,`LastName`,`contactNo`) VALUES (?,?,?,?,?,?,?)";
-        connection.query(f,[username,password,email,firstName,midName,LastName,contactNo],function(err,rows){
+        connection.query(f,[username,password,email,firstName,midName,lastName,contactNo],function(err,rows){
             if(err){
              //req.flash('error', err); 
-             throw err;
+             console.log("Unsuccessful Registration!");
+                 console.log("\n-----------\n");
+                 res.render('Nouserfound');
              //res.render('Pending',{page_title:"Your pending requests",data:''});   
             }else{
-                if(rows.length>0)
-                {
+                
                     console.log("Login Successful!");
                     console.log("\n-----------\n");
                     //res.redirect('/');
                     res.render('SuccessReg');
-                }
-                else
-                {
-                console.log("Unsuccessful Registration!");
-                 console.log("\n-----------\n");
-                 res.render('Nouserfound');
-                }
+                
                 //res.render('Pending',{page_title:"Your pending requests",data:rows});
             }
                                 
