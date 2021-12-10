@@ -18,8 +18,8 @@ module.exports.create = async (req,res)=>{
         console.log(req.body);
         var {username,password,email,contactNo,firstName,midName,lastName}=req.body;
         console.log(username,password,email,contactNo,firstName,midName,lastName);
-        /*
-        CREATE TRIGGER
+        
+        //CREATE TRIGGER
         //THIS CODE WORKS BUT ALSO REQUIRES CONTACTS
         var username=req.body.username;
         var password=req.body.password;
@@ -39,19 +39,20 @@ module.exports.create = async (req,res)=>{
                 {
                     console.log("Login Successful!");
                     console.log("\n-----------\n");
-                    res.redirect('/');
+                    //res.redirect('/');
+                    res.render('SuccessReg');
                 }
                 else
                 {
-                console.log("No such user found!");
+                console.log("Unsuccessful Registration!");
                  console.log("\n-----------\n");
                  res.render('Nouserfound');
                 }
                 //res.render('Pending',{page_title:"Your pending requests",data:rows});
             }
                                 
-             });*/
-        //THIS CODE WORKS BUT ALSO REQUIRES CONTACTS
+             });
+        /*//THIS CODE WORKS BUT ALSO REQUIRES CONTACTS
         const user = await User.create({
             username:req.body.username,
             password:req.body.password,
@@ -61,8 +62,8 @@ module.exports.create = async (req,res)=>{
             midName:req.body.mn,
             lastName:req.body.ln
         });
-        console.log(user);
-        res.render('SuccessReg');
+        console.log(user);*/
+        //res.render('SuccessReg');
         //return res.sendStatus(200);
 
     }catch(err){
