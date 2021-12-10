@@ -1,0 +1,60 @@
+mysql> DELIMITER //  
+mysql> Create Trigger before_ins_contactNo   
+BEFORE INSERT ON userstable FOR EACH ROW  
+BEGIN  
+IF NEW.contactNo < 0 THEN SET NEW.contactNo = NULL;  
+END IF;  
+END //  
+
+
+mysql> use social
+Database changed
+mysql> select * from userstable;
++-----------------+----------+---------------------------+-----------+---------+----------+------------+
+| username        | password | email                     | firstName | midName | LastName | contactNo  |
++-----------------+----------+---------------------------+-----------+---------+----------+------------+
+| Ajay            | Ajay     | ajay@gmail.com            | Ajay      | NULL    | NULL     |       NULL |
+| Akash           | Akash    | akash@gmail.com           | Akash     | NULL    | NULL     |       NULL |
+| Alex            | Alex     | Alex@gmail.com            | Alex      | NULL    | NULL     |       NULL |
+| Amrut           | Amrut    | amrut@gmail.com           | Amrut     | NULL    | NULL     |       NULL |
+| Batman          | Manbat   | akash.21911057@viit.ac.in | firstName | NULL    | NULL     |       3432 |
+| CaptainLambda   | dfd      | asd@gmail.com             | QWE       | QWE     | NULL     | 1231232312 |
+| CaptainLambdad  | ddd      | hehe@gmail.com            | QWE       | QWE     | NULL     | 1231232312 |
+| Hello           | Hello    | ak.gamingside@gmail.com   | Herobrine | NULL    | NULL     |       NULL |
+| Soniya          | Soniya   | soniya@gmail.com          | Soniya    | NULL    | NULL     |       NULL |
+| wealthfligdht   |          | wewe@gmail.com            | wewe      |         | NULL     |    1111111 |
+| wealthflight.in |          | aaa@gmail.com             | asdasd    |         | NULL     | 1231231931 |
+| whan            | whan     | whan@gmail.com            | HHIHIHI   |         | NULL     | 1231234444 |
+| Yl              | Password | aksgh@gmail.com           | YO        | NULL    | NULL     |       NULL |
+| Yolo            | Password | aksh@gmail.com            | YO        | NULL    | NULL     |       NULL |
+| Yyl             | Password | aksgsh@gmail.com          | YfO       | NULL    | NULL     |       NULL |
++-----------------+----------+---------------------------+-----------+---------+----------+------------+
+15 rows in set (0.00 sec)
+
+mysql> INSERT INTO userstable (username, password, email, firstName, contactNo) VALUES ('Ynnel', 'RDR2', 'R2D2@gmail.com', 'LENNY', -1);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from userstable;
++-----------------+----------+---------------------------+-----------+---------+----------+------------+
+| username        | password | email                     | firstName | midName | LastName | contactNo  |
++-----------------+----------+---------------------------+-----------+---------+----------+------------+
+| Ajay            | Ajay     | ajay@gmail.com            | Ajay      | NULL    | NULL     |       NULL |
+| Akash           | Akash    | akash@gmail.com           | Akash     | NULL    | NULL     |       NULL |
+| Alex            | Alex     | Alex@gmail.com            | Alex      | NULL    | NULL     |       NULL |
+| Amrut           | Amrut    | amrut@gmail.com           | Amrut     | NULL    | NULL     |       NULL |
+| Batman          | Manbat   | akash.21911057@viit.ac.in | firstName | NULL    | NULL     |       3432 |
+| CaptainLambda   | dfd      | asd@gmail.com             | QWE       | QWE     | NULL     | 1231232312 |
+| CaptainLambdad  | ddd      | hehe@gmail.com            | QWE       | QWE     | NULL     | 1231232312 |
+| Hello           | Hello    | ak.gamingside@gmail.com   | Herobrine | NULL    | NULL     |       NULL |
+| Soniya          | Soniya   | soniya@gmail.com          | Soniya    | NULL    | NULL     |       NULL |
+| wealthfligdht   |          | wewe@gmail.com            | wewe      |         | NULL     |    1111111 |
+| wealthflight.in |          | aaa@gmail.com             | asdasd    |         | NULL     | 1231231931 |
+| whan            | whan     | whan@gmail.com            | HHIHIHI   |         | NULL     | 1231234444 |
+| Yl              | Password | aksgh@gmail.com           | YO        | NULL    | NULL     |       NULL |
+| Ynnel           | RDR2     | R2D2@gmail.com            | LENNY     | NULL    | NULL     |       NULL |
+| Yolo            | Password | aksh@gmail.com            | YO        | NULL    | NULL     |       NULL |
+| Yyl             | Password | aksgsh@gmail.com          | YfO       | NULL    | NULL     |       NULL |
++-----------------+----------+---------------------------+-----------+---------+----------+------------+
+16 rows in set (0.00 sec)
+
+mysql>
