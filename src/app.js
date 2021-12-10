@@ -92,8 +92,8 @@ app.get('/Viewpost', function(req,res){
   var i=0;
   //Nested queries
   let ob = {};
-  var show = 'SELECT * FROM posts WHERE Username in (SELECT Friend_ID FROM friend_list WHERE User_ID = ?) OR Personal=0';
-  connection.query(show, [a1], function(err, rows){
+  var show = 'SELECT * FROM posts WHERE Username in (SELECT Friend_ID FROM friend_list WHERE User_ID = ?) OR Personal=0 OR Username = ?';
+  connection.query(show, [a1,a1], function(err, rows){
     if(err){
       res.render('Nouserfound',{page_title:"",data:''});
     }
@@ -245,6 +245,7 @@ app.get('/Like', function(req,res){
         var show = 'INSERT INTO likepost (PostID, Username) VALUES (?,?)';
         connection.query(show, [pid,un], function(err, rows){
         if(err){
+          console.log(err);
           res.render('Nouserfound',{page_title:"",data:''});
         }
         else
