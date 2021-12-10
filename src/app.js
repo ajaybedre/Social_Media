@@ -16,6 +16,7 @@ var connection = require('./app_sql');
 var request = require('./routes/Request');
 //var pending= require('./routes/Show_Pending');
 const { title } = require('process');
+const { stringify } = require('querystring');
 var app = express();
 
 const port = 3080; //Changed port to 3080 from 3000
@@ -98,7 +99,7 @@ app.get('/Viewpost', function(req,res){
     }
     else
     {
-      ob = rows;
+     // ob = rows;
       var ss = 'SELECT COUNT(*) AS like_count FROM likepost WHERE PostID = ?';
       rows.forEach((row)=>{
         console.log("PostID ", row.PostID);
@@ -117,7 +118,10 @@ app.get('/Viewpost', function(req,res){
           //obj = row;
           
           rr.forEach((r)=>{
-            //he[i] = r.like_count;
+            he[i]=r.like_count;
+            console.log(i,he[i],r.like_count);
+            var b = stringify.i;
+            ob[b] = he[i];
             //row.Likes = r.like_count;
           i++;
           })
@@ -131,8 +135,16 @@ app.get('/Viewpost', function(req,res){
 
      // res.render('viewposts',{page_title:"Your feed",data:rows});
      console.log(rows);
-     console.log(ob);
-     res.render('viewposts',{page_title:"Your feed",data:rows, dt: he});
+     console.log("hehe", he);
+     let kk={};
+     for(var j=0;j<he.length;j++)
+     {
+       console.log(he[j]);
+       kk[j]=he[j];
+     }
+     //let kk = Object.assign({}, he);
+     console.log("hi", kk);
+     res.render('viewposts',{page_title:"Your feed",data:rows, dt: kk});
     }
   })
 })
