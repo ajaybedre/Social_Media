@@ -104,6 +104,9 @@ app.get('/Viewpost', function(req,res){
       rows.forEach((row)=>{
         console.log("PostID ", row.PostID);
         var k = row.PostID;
+        let mySrc;
+        var hh = row.Pic;
+        console.log("PIC",hh);
         /*ob.forEach((o)=>{
           d = Buffer.from( row.Pic, 'binary' ).toString('base64');
           ob['Pic'] = d;
