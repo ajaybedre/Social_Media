@@ -298,6 +298,8 @@ app.get('/req',function(req, res){
   {
       res.render("Selfreq");
   }
+  else
+  {
   var find = "SELECT username FROM userstable WHERE username =?";
   connection.query(find,[a2],function(err,rows)  {
     if(err){
@@ -368,6 +370,7 @@ app.get('/req',function(req, res){
          
      }
   });
+}
 });
 //app.use('/pending',pending);
 
