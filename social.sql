@@ -32,7 +32,7 @@ CREATE TABLE `comments` (
   KEY `Fk_post_idx` (`PostID`),
   KEY `Fk_now` (`Username`),
   CONSTRAINT `Fk_now` FOREIGN KEY (`Username`) REFERENCES `userstable` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -41,7 +41,7 @@ CREATE TABLE `comments` (
 
 LOCK TABLES `comments` WRITE;
 /*!40000 ALTER TABLE `comments` DISABLE KEYS */;
-INSERT INTO `comments` VALUES (1,'Ajay','Yo','2021-12-09 12:54:48',1),(4,'Ajay','Yo','2021-12-09 13:01:29',1),(5,'Ajay','hehe','2021-12-09 13:01:35',1),(6,'Akash','Yo','2021-12-09 13:03:07',2),(7,'Amrut','hehe','2021-12-09 13:03:22',1);
+INSERT INTO `comments` VALUES (1,'Ajay','Yo','2021-12-09 12:54:48',1),(4,'Ajay','Yo','2021-12-09 13:01:29',1),(5,'Ajay','hehe','2021-12-09 13:01:35',1),(6,'Akash','Yo','2021-12-09 13:03:07',2),(7,'Amrut','hehe','2021-12-09 13:03:22',1),(8,'Akash','What\'s up?','2021-12-11 15:30:38',2);
 /*!40000 ALTER TABLE `comments` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -64,7 +64,7 @@ CREATE TABLE `friend_list` (
 
 LOCK TABLES `friend_list` WRITE;
 /*!40000 ALTER TABLE `friend_list` DISABLE KEYS */;
-INSERT INTO `friend_list` VALUES ('Akash','Amrut'),('Alex','Soniya'),('Amrut','Akash'),('Soniya','Alex'),('Hello','Akash'),('Akash','Hello'),('Akash','Alex'),('Alex','Akash'),('Akash','Ajay'),('Ajay','Akash');
+INSERT INTO `friend_list` VALUES ('Akash','Amrut'),('Alex','Soniya'),('Amrut','Akash'),('Soniya','Alex'),('Akash','Alex'),('Alex','Akash'),('Akash','Ajay'),('Ajay','Akash'),('Akash','Happy'),('Happy','Akash');
 /*!40000 ALTER TABLE `friend_list` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -103,13 +103,9 @@ DROP TABLE IF EXISTS `likepost`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `likepost` (
-  `PostID` bigint NOT NULL AUTO_INCREMENT,
-  `Username` varchar(45) NOT NULL,
-  UNIQUE KEY `Username_UNIQUE` (`Username`),
-  KEY `Fk_poster_idx` (`PostID`),
-  CONSTRAINT `Fk_pos` FOREIGN KEY (`PostID`) REFERENCES `posts` (`PostID`),
-  CONSTRAINT `Fk_user` FOREIGN KEY (`Username`) REFERENCES `userstable` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `PostID` bigint NOT NULL,
+  `Username` varchar(45) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -118,7 +114,7 @@ CREATE TABLE `likepost` (
 
 LOCK TABLES `likepost` WRITE;
 /*!40000 ALTER TABLE `likepost` DISABLE KEYS */;
-INSERT INTO `likepost` VALUES (1,'Ajay');
+INSERT INTO `likepost` VALUES (2,'Akash'),(6,'Akash'),(3,'Akash'),(6,'Happy');
 /*!40000 ALTER TABLE `likepost` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -166,7 +162,7 @@ CREATE TABLE `pending_requests` (
 
 LOCK TABLES `pending_requests` WRITE;
 /*!40000 ALTER TABLE `pending_requests` DISABLE KEYS */;
-INSERT INTO `pending_requests` VALUES ('Ajay','Ajay'),('Ajay','Alex'),('Ajay','Soniya');
+INSERT INTO `pending_requests` VALUES ('Ajay','Ajay'),('Ajay','Alex'),('Happy','Happy'),('Ajay','Soniya');
 /*!40000 ALTER TABLE `pending_requests` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -188,7 +184,7 @@ CREATE TABLE `posts` (
   UNIQUE KEY `PostID_UNIQUE` (`PostID`),
   KEY `FK_For_idx` (`Username`),
   CONSTRAINT `FK_For` FOREIGN KEY (`Username`) REFERENCES `userstable` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -197,7 +193,7 @@ CREATE TABLE `posts` (
 
 LOCK TABLES `posts` WRITE;
 /*!40000 ALTER TABLE `posts` DISABLE KEYS */;
-INSERT INTO `posts` VALUES (1,'hi',NULL,'2021-12-09 10:32:33','Akash',0),(2,'hi',NULL,'2021-12-09 13:01:53','Ajay',1),(3,'HACKERBOI',_binary 'download.jpg','2021-12-09 13:23:33','Akash',0);
+INSERT INTO `posts` VALUES (1,'hi',NULL,'2021-12-09 10:32:33','Akash',0),(2,'hi',NULL,'2021-12-09 13:01:53','Ajay',1),(3,'HACKERBOI',_binary 'download.jpg','2021-12-09 13:23:33','Akash',0),(4,'ANNIE ARE YOU WOKAY?',_binary 'download (2).jpg','2021-12-10 14:26:52','Ajay',1),(5,'Posting after a long long time!',_binary 'media-1203444-mentor-device-power-figure-1.jpg','2021-12-11 15:28:10','Akash',1),(6,'This is a public post!','','2021-12-11 15:28:21','Akash',0);
 /*!40000 ALTER TABLE `posts` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -250,7 +246,7 @@ CREATE TABLE `userstable` (
 
 LOCK TABLES `userstable` WRITE;
 /*!40000 ALTER TABLE `userstable` DISABLE KEYS */;
-INSERT INTO `userstable` VALUES ('Ajay','Ajay','ajay@gmail.com','Ajay',NULL,NULL,NULL),('Akash','Akash','akash@gmail.com','Akash',NULL,NULL,NULL),('Alex','Alex','Alex@gmail.com','Alex',NULL,NULL,NULL),('Amrut','Amrut','amrut@gmail.com','Amrut',NULL,NULL,NULL),('Batman','Manbat','akash.21911057@viit.ac.in','firstName',NULL,NULL,3432),('CaptainLambda','dfd','asd@gmail.com','QWE','QWE',NULL,1231232312),('CaptainLambdad','ddd','hehe@gmail.com','QWE','QWE',NULL,1231232312),('Hello','Hello','ak.gamingside@gmail.com','Herobrine',NULL,NULL,NULL),('Soniya','Soniya','soniya@gmail.com','Soniya',NULL,NULL,NULL),('wealthfligdht','','wewe@gmail.com','wewe','',NULL,1111111),('wealthflight.in','','aaa@gmail.com','asdasd','',NULL,1231231931),('whan','whan','whan@gmail.com','HHIHIHI','',NULL,1231234444),('Yl','Password','aksgh@gmail.com','YO',NULL,NULL,NULL),('Ynnel','RDR2','R2D2@gmail.com','LENNY',NULL,NULL,NULL),('Yolo','Password','aksh@gmail.com','YO',NULL,NULL,NULL),('Yyl','Password','aksgsh@gmail.com','YfO',NULL,NULL,NULL);
+INSERT INTO `userstable` VALUES ('Ajay','Ajay','ajay@gmail.com','Ajay',NULL,NULL,NULL),('Akash','Akash','akash@gmail.com','Akash',NULL,NULL,NULL),('Alex','Alex','Alex@gmail.com','Alex',NULL,NULL,NULL),('Amrut','Amrut','amrut@gmail.com','Amrut',NULL,NULL,NULL),('Batman','Manbat','akash.21911057@viit.ac.in','firstName',NULL,NULL,3432),('CaptainLambda','dfd','asd@gmail.com','QWE','QWE',NULL,1231232312),('CaptainLambdad','ddd','hehe@gmail.com','QWE','QWE',NULL,1231232312),('Happy','Happy','Happy@gmail.com','Happy','','',NULL),('Happyit','it','Happgy@gmail.com','Hapgpy','','',NULL),('Hello','Hello','ak.gamingside@gmail.com','Herobrine',NULL,NULL,NULL),('Hero','Hero','hero.23@gmail.com','Hero','','',NULL),('Soniya','Soniya','soniya@gmail.com','Soniya',NULL,NULL,NULL),('wealthfligdht','','wewe@gmail.com','wewe','',NULL,1111111),('wealthflight.in','','aaa@gmail.com','asdasd','',NULL,1231231931),('whan','whan','whan@gmail.com','HHIHIHI','',NULL,1231234444),('Yl','Password','aksgh@gmail.com','YO',NULL,NULL,NULL),('Ynnel','RDR2','R2D2@gmail.com','LENNY',NULL,NULL,NULL),('Yolo','Password','aksh@gmail.com','YO',NULL,NULL,NULL),('Yyl','Password','aksgsh@gmail.com','YfO',NULL,NULL,NULL);
 /*!40000 ALTER TABLE `userstable` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -266,6 +262,22 @@ DELIMITER ;;
 IF NEW.contactNo < 0 THEN SET NEW.contactNo=NULL;
 END IF;
 END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = cp850 */ ;
+/*!50003 SET character_set_results = cp850 */ ;
+/*!50003 SET collation_connection  = cp850_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `bef_ins_contact_neg` BEFORE INSERT ON `userstable` FOR EACH ROW IF NEW.contactNo = '' THEN SET NEW.contactNo = NULL;
+END IF */;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
@@ -289,4 +301,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-12-10 18:59:28
+-- Dump completed on 2021-12-11 21:45:05
